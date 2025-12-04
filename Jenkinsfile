@@ -14,29 +14,26 @@ pipeline {
         stage('Run script') {
             steps {
                 sh '''
-                    python3 tu_script.py
+                    # 👇 CAMBIA "tu_script.py" por el nombre real de tu script
+                    python3 Test_realestate.py
                 '''
             }
         }
-    }
 
-    post {
-        failure {
-            echo "❌ The script failed. Check console logs to find errors."
-        }
-        success {
-            echo "✅ Script executed successfully."
-        }
-    }
-}
-pipeline {
-    agent any
-
-    stages {
         stage('Run Tests') {
             steps {
                 sh 'python3 Test_realestate.py'
             }
         }
     }
+
+    post {
+        success {
+            echo "✅ Pipeline completed successfully."
+        }
+        failure {
+            echo "❌ The pipeline failed. Check console logs to find errors."
+        }
+    }
 }
+
